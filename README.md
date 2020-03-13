@@ -1,8 +1,13 @@
 # mindbattle
 ### 起動の仕方
 * \mindbattle\Assets\Scenes\SampleScene.unity　を実行
-* clone時はassetのimportで軌道に時間かかります
+* clone時はassetのimportで起動に時間かかります
 * ※gitignoreでいくつかcommitしていないものがあるため
+
+### 開発環境
+* Windows10
+* Unity 2019.3.4f1
+* VisualStudio 2019
 
 ### Assets
 * AllSkyFree
@@ -16,7 +21,8 @@
 
 ### 実行方法
 * 上真ん中の再生ボタン（Play）を押す　→game dialog上に表示
-* A: attack, G:guard
+* A: attack 攻撃モーションと同時にファイヤーボール生成
+* G:guard　　防御モーションと同時にバリヤー生成
 * 色々エラー出てますが無視してやってます。もしかしたらbuild時はエラー出るかも
 
 ### 参考にしたサイト
