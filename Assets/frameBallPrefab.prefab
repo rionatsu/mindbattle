@@ -9414,7 +9414,7 @@ GameObject:
   - component: {fileID: 6935015139841622833}
   - component: {fileID: 6935015139841604241}
   m_Layer: 0
-  m_Name: frameBallPrehab
+  m_Name: frameBallPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9428,7 +9428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6935015139856407127}
   m_LocalRotation: {x: -0.49243817, y: -0.50744915, z: 0.50744915, w: 0.49243817}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6935015139856828017}
@@ -10897,7 +10897,7 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 10
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11003,7 +11003,7 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
