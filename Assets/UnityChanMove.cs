@@ -18,6 +18,9 @@ public class UnityChanMove : MonoBehaviour
     // バリア
     public GameObject barrierPrefab;
 
+    GameObject bw;
+    DisplayData dd;
+
     void Start()
     {
         //Rigidbodyを取得
@@ -27,6 +30,9 @@ public class UnityChanMove : MonoBehaviour
         //ユニティちゃんの現在より少し前の位置を保存
         playerPos = transform.position;
 
+        //脳波データを取得
+        bw = GameObject.Find("NeuroSkyTGCController");
+        dd = bw.GetComponent<DisplayData>();
     }
 
     void Update()
@@ -34,15 +40,16 @@ public class UnityChanMove : MonoBehaviour
         //地面に接触していると作動する
         if (ground)
         {
+            int mode = dd.mode;
             // attack
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A) || (mode==1))
             {
                 animator.SetBool("attack", true);
                 GameObject fireBall = Instantiate(frameBallPrefab, animator.transform, false) as GameObject;
                 //fireBall.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 100));
             }
             // guard
-            else if (Input.GetKeyDown(KeyCode.G))
+            else if (Input.GetKeyDown(KeyCode.G) || (mode==2))
             {
                 animator.SetBool("guard", true);
                 GameObject barrier = Instantiate(barrierPrefab, animator.transform, false) as GameObject;
