@@ -12,6 +12,14 @@ public class FrameBallController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GetComponent<Rigidbody>().isKinematic = true;
+        // CPUとの接触
+        if (collision.gameObject.name == "SapphiArtchan")
+        {
+            GameObject director = GameObject.Find("GameDirector");
+            director.GetComponent<GameDirector>().DecreaseHpCPU();
+
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -25,4 +33,5 @@ public class FrameBallController : MonoBehaviour
     {
         
     }
+
 }
