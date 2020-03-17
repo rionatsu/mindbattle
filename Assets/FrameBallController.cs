@@ -9,10 +9,28 @@ public class FrameBallController : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(dir);
     }
 
+    private void OnParticleCollision(GameObject obj)
+    {
+        Debug.Log("Hit3");
+        Debug.Log(obj.gameObject.name);
+        Debug.Log(obj.tag);
+        Debug.Log(obj);
+        //Debug.Log(this.ParticleSystem);
+
+        var body = obj.GetComponent<Rigidbody>();
+
+        if (obj.gameObject.name != "unitychan_dynamic")
+        {
+            Destroy(gameObject);
+        }
+        
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
             Debug.Log("Hit1");
         GetComponent<Rigidbody>().isKinematic = true;
+        Debug.Log(collision.gameObject.name);
         // CPUとの接触
         if (collision.gameObject.name == "SapphiArtchan")
         {
@@ -20,7 +38,7 @@ public class FrameBallController : MonoBehaviour
             director.GetComponent<GameDirector>().DecreaseHpCPU();
 
             Destroy(gameObject);
-            Debug.Log("Hit");
+            Debug.Log("Hit2");
         }
     }
 
@@ -33,7 +51,11 @@ public class FrameBallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Transform ts = transform;
+        Vector3 pos = ts.position;
+        //Debug.Log("X "+pos.x);
+        //Debug.Log("Y " + pos.y);
+        //Debug.Log("Z " + pos.z);
     }
 
 }
