@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class DisplayData : MonoBehaviour
 {
 	public Texture2D[] signalIcons;
@@ -33,11 +34,32 @@ public class DisplayData : MonoBehaviour
 	public int mode;//none:0, 1:attack,2:defence
 
 
+	void learning()
+	{
+		//var reader;
+		try
+		{
+			var reader = new System.IO.StreamReader("result.txt", true);
+			Debug.Log(reader);
+			//while (!reader.EndOfStream)
+			//{
+				string line = reader.ReadLine();
+				string[] values = line.Split(',');
+				int temp_mode = int.Parse(values[0]);
+				mode = temp_mode;
+				Debug.Log(mode);
+			//}
+		}
+		catch
+		{
+			Debug.Log("error");
+		}
+	}
 
 
     void Start()
 	{
-
+		learning();
 		controller = GameObject.Find("NeuroSkyTGCController").GetComponent<TGCConnectionController>();
 
 		controller.UpdatePoorSignalEvent += OnUpdatePoorSignal;
@@ -58,9 +80,9 @@ public class DisplayData : MonoBehaviour
         controller.UpdateLowGammaEvent   += OnUpdateLowGamma;
         controller.UpdateHighGammaEvent  += OnUpdateHighGamma;
         
-		//–³ŒÀ‚ÉƒRƒlƒNƒVƒ‡ƒ“‚ðƒgƒ‰ƒC‚·‚é‚Ì‚ÅA”ñÚ‘±‚Ìê‡‚±‚ê‚ðƒRƒƒ“ƒgƒAƒEƒg
-		//try‚É‚µ‚Ä‚à’†‚Å–³ŒÀ‚Éƒ‹[ƒv‚·‚é‚©‚çƒ_ƒ‚¾‚Á‚½
-		controller.Connect();
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ÉƒRï¿½lï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½Ì‚ÅAï¿½ï¿½Ú‘ï¿½ï¿½Ìê‡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½Aï¿½Eï¿½g
+		//tryï¿½É‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Å–ï¿½ï¿½ï¿½ï¿½Éƒï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½é‚©ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//controller.Connect();
         counter = 0;
     }
 
@@ -140,7 +162,7 @@ public class DisplayData : MonoBehaviour
 
 	void modeselector()
 	{
-		//‚±‚±‚ðSVM‚Ì”»’è‹@‚É‚·‚é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SVMï¿½Ì”ï¿½ï¿½ï¿½@ï¿½É‚ï¿½ï¿½ï¿½
 		if (attention1 > 50)
 		{
 			mode = 1;
@@ -193,6 +215,7 @@ public class DisplayData : MonoBehaviour
 			blink1 = 0;
 		}
         writedata();
-		modeselector();
+		//modeselector();
+		learning();
 	}
 }
