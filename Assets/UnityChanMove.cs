@@ -32,22 +32,24 @@ public class UnityChanMove : MonoBehaviour
 
         //脳波データを取得
         bw = GameObject.Find("NeuroSkyTGCController");
-        //dd = bw.GetComponent<DisplayData>();
+        //dd = bw.GetComponent<DisplayData>(); //脳波使用しない場合コメントアウト
     }
 
     void Update()
     {
+
         //地面に接触していると作動する
         if (ground)
         {
-            //int mode = dd.mode;
+            //int mode = dd.getmode();
             int mode = 3;
             // attack
-            if (Input.GetKeyDown(KeyCode.A) || (mode==1))
+            if ((Input.GetKeyDown(KeyCode.A)) || (mode==1) )
             {
                 animator.SetBool("attack", true);
                 GameObject fireBall = Instantiate(frameBallPrefab, animator.transform, false) as GameObject;
                 //fireBall.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 100));
+                //dd.mode = 0;
             }
             // guard
             else if (Input.GetKeyDown(KeyCode.G) || (mode==2))

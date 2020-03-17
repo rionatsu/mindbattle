@@ -4336,6 +4336,7 @@ GameObject:
   - component: {fileID: 463472}
   - component: {fileID: 9590100}
   - component: {fileID: 11415292}
+  - component: {fileID: 850086133051816991}
   m_Layer: 0
   m_Name: SapphiArtchan
   m_TagString: Untagged
@@ -4390,6 +4391,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ccb49676687917499386abab8234bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &850086133051816991
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172388}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &172742
 GameObject:
   m_ObjectHideFlags: 0

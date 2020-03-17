@@ -11,6 +11,7 @@ public class FrameBallController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+            Debug.Log("Hit1");
         GetComponent<Rigidbody>().isKinematic = true;
         // CPUとの接触
         if (collision.gameObject.name == "SapphiArtchan")
@@ -19,6 +20,7 @@ public class FrameBallController : MonoBehaviour
             director.GetComponent<GameDirector>().DecreaseHpCPU();
 
             Destroy(gameObject);
+            Debug.Log("Hit");
         }
     }
 

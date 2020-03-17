@@ -30,29 +30,37 @@ public class DisplayData : MonoBehaviour
     float HighGamma;
 
     int counter;
+	int counter2;
 
 	public int mode;//none:0, 1:attack,2:defence
+	int attack_counter ;
 
+	public int getmode(){
+		//if(mode == 1){
+		//	if( attack_counter>=0){
+		//		return 0;
+		//	}
+		//	attack_counter = 20;
+		//}
+		return mode;
+	}
 
 	void learning()
-	{
-		//var reader;
-		try
-		{
-			var reader = new System.IO.StreamReader("result.txt", true);
-			Debug.Log(reader);
-			//while (!reader.EndOfStream)
-			//{
-				string line = reader.ReadLine();
-				string[] values = line.Split(',');
-				int temp_mode = int.Parse(values[0]);
-				mode = temp_mode;
-				Debug.Log(mode);
-			//}
-		}
-		catch
-		{
-			Debug.Log("error");
+	{        
+        counter2 = (counter2 + 1) % 10;
+		if (counter2 == 0)
+        {
+			System.IO.File.Copy("result","result2",true);
+
+			System.IO.StreamReader reader = new System.IO.StreamReader("result2");
+			string line = reader.ReadLine();
+			string sep = line.Substring(0,3);//1.00000000+なんちゃら　の先頭だけとる
+			//Debug.Log(sep);
+			int temp_mode = (int)float.Parse(sep);//1.0をintにパースはできないらしい。
+			mode = temp_mode;
+			Debug.Log(mode);
+
+			reader.Close();
 		}
 	}
 
@@ -82,8 +90,10 @@ public class DisplayData : MonoBehaviour
         
 		//�����ɃR�l�N�V�������g���C����̂ŁA��ڑ��̏ꍇ������R�����g�A�E�g
 		//try�ɂ��Ă����Ŗ����Ƀ��[�v���邩��_��������
-		//controller.Connect();
+		controller.Connect();
         counter = 0;
+		counter2 = 0;
+		attack_counter = 0;
     }
 
 	void OnUpdateBlink(int value)
@@ -149,10 +159,11 @@ public class DisplayData : MonoBehaviour
     }
 
     void writedata()
-    {
-        counter = (counter + 1) % 2;
+    {	
+        counter = (counter + 1) % 10;
         if (counter == 0)
         {
+			Debug.Log("Write");
             using (var writer = new System.IO.StreamWriter("Brainwavelog.txt", true))
             {
                 writer.Write("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}\n", poorSignal1, blink1, attention1, meditation1, delta,  Rawdata, Theta, LowAlpha, HighAlpha, LowBeta, HighBeta, LowGamma, HighGamma);
@@ -179,32 +190,8 @@ public class DisplayData : MonoBehaviour
 
     void OnGUI()
 	{
-		//GUILayout.BeginHorizontal();
-
-
-		//if (GUILayout.Button("Connect"))
-		//{
-		//	controller.Connect();
-		//}
-		//if (GUILayout.Button("DisConnect"))
-		//{
-		//	controller.Disconnect();
-		//	indexSignalIcons = 1;
-		//}
-		//Debug.Log(indexSignalIcons);
-		//Debug.Log(signalIcons[0]);
-		//GUILayout.Space(Screen.width - 250);
-		//GUILayout.Label(signalIcons[indexSignalIcons]);
-		//GUILayout.Label("Test");
-
-		//GUILayout.EndHorizontal();
-
-
-		//GUILayout.Label("PoorSignal1:" + poorSignal1);
-		//GUILayout.Label("Attention1:" + attention1);
-		//GUILayout.Label("Meditation1:" + meditation1);
-		//GUILayout.Label("Delta:" + delta);
-		//GUILayout.Label("Blink:" + blink1);
+		attack_counter--;
+		attack_counter = attack_counter <0 ? 0 : attack_counter;
 
 		if (blink1 >= 0)
 		{
