@@ -14,6 +14,10 @@ public class GameDirector : MonoBehaviour
         this.hpGaugePlayer = GameObject.Find("HPGaugePlayer");
         this.hpGaugeCPU = GameObject.Find("HPGaugeCPU");
         Debug.Log(this.hpGaugeCPU);
+
+        GameObject WinText = GameObject.Find("WinText");
+        Text tx = WinText.GetComponent<Text>();
+        tx.enabled = false;
     }
 
     // Update is called once per frame
@@ -40,5 +44,11 @@ public class GameDirector : MonoBehaviour
         Image im = HPCPU.GetComponent<Image>();
         im.fillAmount -= 0.1f;
         Debug.Log(im);
+        if (im.fillAmount <= 0.0f)
+        {
+            GameObject WinText = GameObject.Find("WinText");
+            Text tx = WinText.GetComponent<Text>();
+            tx.enabled = true;
+        }
     }
 }
