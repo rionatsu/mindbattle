@@ -40,6 +40,8 @@ public class SapphiArtchanMove : MonoBehaviour
             {
                 animator.SetBool("attack", true);
                 GameObject fireBall = Instantiate(frameBallPrefab, animator.transform, false) as GameObject;
+
+                fireBall.gameObject.tag = "sa";
             }
             // guard
             else if (Input.GetKeyDown(KeyCode.H))

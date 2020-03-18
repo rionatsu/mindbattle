@@ -60,7 +60,7 @@ while(True):
             np.savetxt("../result",now_result)
         except:
             pass
-    time.sleep(0.5)
+    time.sleep(2)
 
 
 if(True):

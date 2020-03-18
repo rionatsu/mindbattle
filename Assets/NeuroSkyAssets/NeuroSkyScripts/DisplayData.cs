@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class DisplayData : MonoBehaviour
 {
 	public Texture2D[] signalIcons;
@@ -29,15 +30,44 @@ public class DisplayData : MonoBehaviour
     float HighGamma;
 
     int counter;
+	int counter2;
 
 	public int mode;//none:0, 1:attack,2:defence
+	int attack_counter ;
 
+	public int getmode(){
+		//if(mode == 1){
+		//	if( attack_counter>=0){
+		//		return 0;
+		//	}
+		//	attack_counter = 20;
+		//}
+		return mode;
+	}
 
+	void learning()
+	{        
+        counter2 = (counter2 + 1) % 10;
+		if (counter2 == 0)
+        {
+			System.IO.File.Copy("result","result2",true);
+
+			System.IO.StreamReader reader = new System.IO.StreamReader("result2");
+			string line = reader.ReadLine();
+			string sep = line.Substring(0,3);//1.00000000+„Å™„Çì„Å°„ÇÉ„Çâ„ÄÄ„ÅÆÂÖàÈ†≠„Å†„Åë„Å®„Çã
+			//Debug.Log(sep);
+			int temp_mode = (int)float.Parse(sep);//1.0„Çíint„Å´„Éë„Éº„Çπ„ÅØ„Åß„Åç„Å™„ÅÑ„Çâ„Åó„ÅÑ„ÄÇ
+			mode = temp_mode;
+			Debug.Log(mode);
+
+			reader.Close();
+		}
+	}
 
 
     void Start()
 	{
-
+		learning();
 		controller = GameObject.Find("NeuroSkyTGCController").GetComponent<TGCConnectionController>();
 
 		controller.UpdatePoorSignalEvent += OnUpdatePoorSignal;
@@ -58,10 +88,12 @@ public class DisplayData : MonoBehaviour
         controller.UpdateLowGammaEvent   += OnUpdateLowGamma;
         controller.UpdateHighGammaEvent  += OnUpdateHighGamma;
         
-		//ñ≥å¿Ç…ÉRÉlÉNÉVÉáÉìÇÉgÉâÉCÇ∑ÇÈÇÃÇ≈ÅAîÒê⁄ë±ÇÃèÍçáÇ±ÇÍÇÉRÉÅÉìÉgÉAÉEÉg
-		//tryÇ…ÇµÇƒÇ‡íÜÇ≈ñ≥å¿Ç…ÉãÅ[ÉvÇ∑ÇÈÇ©ÇÁÉ_ÉÅÇæÇ¡ÇΩ
-		controller.Connect();
+		//ÔøΩÔøΩÔøΩÔøΩÔøΩ…ÉRÔøΩlÔøΩNÔøΩVÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩgÔøΩÔøΩÔøΩCÔøΩÔøΩÔøΩÔøΩÃÇ≈ÅAÔøΩÔøΩ⁄ëÔøΩÔøΩÃèÍçáÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩRÔøΩÔøΩÔøΩÔøΩÔøΩgÔøΩAÔøΩEÔøΩg
+		//tryÔøΩ…ÇÔøΩÔøΩƒÇÔøΩÔøΩÔøΩÔøΩ≈ñÔøΩÔøΩÔøΩÔøΩ…ÉÔøΩÔøΩ[ÔøΩvÔøΩÔøΩÔøΩÈÇ©ÔøΩÔøΩ_ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+		//controller.Connect();
         counter = 0;
+		counter2 = 0;
+		attack_counter = 0;
     }
 
 	void OnUpdateBlink(int value)
@@ -127,10 +159,11 @@ public class DisplayData : MonoBehaviour
     }
 
     void writedata()
-    {
-        counter = (counter + 1) % 2;
+    {	
+        counter = (counter + 1) % 10;
         if (counter == 0)
         {
+			Debug.Log("Write");
             using (var writer = new System.IO.StreamWriter("Brainwavelog.txt", true))
             {
                 writer.Write("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}\n", poorSignal1, blink1, attention1, meditation1, delta,  Rawdata, Theta, LowAlpha, HighAlpha, LowBeta, HighBeta, LowGamma, HighGamma);
@@ -140,7 +173,7 @@ public class DisplayData : MonoBehaviour
 
 	void modeselector()
 	{
-		//Ç±Ç±ÇSVMÇÃîªíËã@Ç…Ç∑ÇÈ
+		//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩSVMÔøΩÃîÔøΩÔøΩÔøΩ@ÔøΩ…ÇÔøΩÔøΩÔøΩ
 		if (attention1 > 50)
 		{
 			mode = 1;
@@ -157,32 +190,8 @@ public class DisplayData : MonoBehaviour
 
     void OnGUI()
 	{
-		//GUILayout.BeginHorizontal();
-
-
-		//if (GUILayout.Button("Connect"))
-		//{
-		//	controller.Connect();
-		//}
-		//if (GUILayout.Button("DisConnect"))
-		//{
-		//	controller.Disconnect();
-		//	indexSignalIcons = 1;
-		//}
-		//Debug.Log(indexSignalIcons);
-		//Debug.Log(signalIcons[0]);
-		//GUILayout.Space(Screen.width - 250);
-		//GUILayout.Label(signalIcons[indexSignalIcons]);
-		//GUILayout.Label("Test");
-
-		//GUILayout.EndHorizontal();
-
-
-		//GUILayout.Label("PoorSignal1:" + poorSignal1);
-		//GUILayout.Label("Attention1:" + attention1);
-		//GUILayout.Label("Meditation1:" + meditation1);
-		//GUILayout.Label("Delta:" + delta);
-		//GUILayout.Label("Blink:" + blink1);
+		attack_counter--;
+		attack_counter = attack_counter <0 ? 0 : attack_counter;
 
 		if (blink1 >= 0)
 		{
@@ -192,7 +201,10 @@ public class DisplayData : MonoBehaviour
 			blinkcounter = 0;
 			blink1 = 0;
 		}
-        writedata();
-		modeselector();
+
+
+        //writedata();
+		//modeselector();
+		//learning();
 	}
 }
