@@ -90,7 +90,7 @@ public class DisplayData : MonoBehaviour
         
 		//�����ɃR�l�N�V�������g���C����̂ŁA��ڑ��̏ꍇ������R�����g�A�E�g
 		//try�ɂ��Ă����Ŗ����Ƀ��[�v���邩��_��������
-		controller.Connect();
+		//controller.Connect();
         counter = 0;
 		counter2 = 0;
 		attack_counter = 0;
@@ -201,8 +201,10 @@ public class DisplayData : MonoBehaviour
 			blinkcounter = 0;
 			blink1 = 0;
 		}
-        writedata();
+
+
+        //writedata();
 		//modeselector();
-		learning();
+		//learning();
 	}
 }

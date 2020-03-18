@@ -13,6 +13,7 @@ public class GameDirector : MonoBehaviour
     {
         this.hpGaugePlayer = GameObject.Find("HPGaugePlayer");
         this.hpGaugeCPU = GameObject.Find("HPGaugeCPU");
+        Debug.Log(this.hpGaugeCPU);
     }
 
     // Update is called once per frame
@@ -23,11 +24,21 @@ public class GameDirector : MonoBehaviour
 
     public void DecreaseHpPlayer()
     {
-        this.hpGaugePlayer.GetComponent<Image>().fillAmount -= 0.1f;
+        //this.hpGaugePlayer.GetComponent<Image>().fillAmount -= 0.1f;
+        Image im = this.hpGaugePlayer.GetComponent<Image>();
+        im.fillAmount -= 0.1f;
     }
 
     public void DecreaseHpCPU()
     {
-        this.hpGaugeCPU.GetComponent<Image>().fillAmount -= 0.1f;
+        Debug.Log("Call Decrease CPU HP");
+        //this.hpGaugeCPU.GetComponent<Image>().fillAmount -= 0.1f;
+        //Image im = this.hpGaugeCPU.GetComponent<Image>();
+        //im.fillAmount -= 0.1f;
+
+        GameObject HPCPU = GameObject.Find("HPGaugeCPU");
+        Image im = HPCPU.GetComponent<Image>();
+        im.fillAmount -= 0.1f;
+        Debug.Log(im);
     }
 }
