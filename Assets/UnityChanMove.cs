@@ -20,6 +20,8 @@ public class UnityChanMove : MonoBehaviour
 
     GameObject bw;
     DisplayData dd;
+    GameObject canvas;
+    GameDirector gd;
 
     void Start()
     {
@@ -31,8 +33,11 @@ public class UnityChanMove : MonoBehaviour
         playerPos = transform.position;
 
         //脳波データを取得
-        bw = GameObject.Find("NeuroSkyTGCController");
+        //bw = GameObject.Find("NeuroSkyTGCController");
         //dd = bw.GetComponent<DisplayData>(); //脳波使用しない場合コメントアウト
+
+        canvas = GameObject.Find("Canvas");
+        gd = canvas.GetComponent<GameDirector>();
     }
 
     void Update()
@@ -50,6 +55,8 @@ public class UnityChanMove : MonoBehaviour
                 GameObject fireBall = Instantiate(frameBallPrefab, animator.transform, false) as GameObject;
                 //fireBall.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 100));
                 //dd.mode = 0;
+                fireBall.gameObject.tag = "un";
+                gd.updatePlayerGaurd(false);
             }
             // guard
             else if (Input.GetKeyDown(KeyCode.G) || (mode==2))
@@ -58,11 +65,13 @@ public class UnityChanMove : MonoBehaviour
                 GameObject barrier = Instantiate(barrierPrefab, animator.transform, false) as GameObject;
                 barrier.transform.parent = animator.transform;
                 //Invoke("Destroy(barrier)", 1);
+                gd.updatePlayerGaurd(true);
             }
             else
             {
                 animator.SetBool("attack", false);
                 animator.SetBool("guard", false);
+                gd.updatePlayerGaurd(false);
             }
             //ユニティちゃんの位置を更新する
             //playerPos = transform.position;
